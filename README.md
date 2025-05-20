@@ -1,5 +1,9 @@
 # my-sdust-oj-archives
 
+我的 SDUST OJ 归档，使用 C 语言。
+
+此分支已弃用，请查看 `cpp` 和 `pta` 分支。
+
 ## Requirements
 
 - GNU GCC
