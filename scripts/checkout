@@ -47,7 +47,7 @@ end
 
 set inner_sample_input 0
 set inner_sample_output 0
-set inner_prepend_code 0
+set inner_append_code 0
 set inner_code 0
 
 for line in (cat $file)
@@ -61,8 +61,8 @@ for line in (cat $file)
         continue
     end
 
-    if string match -rq '^// Prepend Code Start$' $line
-        set inner_prepend_code 1
+    if string match -rq '^// Append Code Start$' $line
+        set inner_append_code 1
         continue
     end
 
@@ -84,17 +84,16 @@ for line in (cat $file)
         continue
     end
 
-    if test $inner_prepend_code -eq 1
-        if string match -rq '^// Prepend Code End$' $line
-            # INFO: magic number 2: means the prepend code has been read
-            set inner_prepend_code 2
+    if test $inner_append_code -eq 1
+        if string match -rq '^// Append Code End$' $line
+            set inner_append_code 0
             continue
         end
-        echo $line >>./src/__prepend__.cpp
+        echo $line >>./src/__append__.cpp
         continue
     end
 
-    if string match -rq '^//.*$' $line; and test $inner_prepend_code -ne 2
+    if string match -rq '^//.*$' $line
         continue
     end
 
@@ -103,10 +102,6 @@ for line in (cat $file)
     end
 
     if test $inner_code -eq 1
-        if test $inner_prepend_code -eq 2
-            printf '#include "__prepend__.cpp"\n\n' >>./src/main.cpp
-            set inner_prepend_code 0
-        end
         echo $line >>./src/main.cpp
     end
 end

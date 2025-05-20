@@ -4,17 +4,7 @@ if not test -d ./archives
     mkdir ./archives
 end
 
-if not count ./archives/*.cpp >/dev/null
-    set id 1
-else
-    set last_id (ls ./archives/*.cpp | sed -E 's|.*/([0-9]{4}).*|\1|' | sort -n | tail -n1)
-    set id (math $last_id + 1)
-end
-
-set id (printf "%04d" $id)
-
-echo "ID: $id"
-
+read -P "ID: " id
 read -P "Description: " description
 
 set file "./archives/$(test -n "$description"; and printf "%s_%s.cpp" $id $description; or echo $id.cpp)"
@@ -39,23 +29,19 @@ for line in (cat ./src/out.txt)
     echo "// $line" >>$file
 end
 
-if test -f ./src/__prepend__.cpp
-    echo >>$file
-    echo "// Prepend Code Start" >>$file
-    for line in (cat ./src/__prepend__.cpp)
-        echo $line >>$file
-    end
-    echo "// Prepend Code End" >>$file
-end
-
 echo >>$file
-set has_lines 0
 for line in (cat ./src/main.cpp)
-    if test $line = '#include "__prepend__.cpp"'
+    if test $line = '#include "__append__.cpp"'
         continue
     end
-    if test $has_lines -eq 1; or not string match -rq '^$' $line
-        set has_lines 1
+    echo $line >>$file
+end
+
+if test -f ./src/__append__.cpp
+    # echo >>$file
+    echo "// Append Code Start" >>$file
+    for line in (cat ./src/__append__.cpp)
         echo $line >>$file
     end
+    echo "// Append Code End" >>$file
 end

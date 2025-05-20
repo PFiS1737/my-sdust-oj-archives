@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-argparse n/onlytouching y/yes a/prepend -- $argv
+argparse n/onlytouching y/yes a/append -- $argv
 
 if not set -q _flag_y
     echo "This will override your workspace."
@@ -25,11 +25,13 @@ end
 rm -f ./src/main.cpp
 rm -f ./src/in.txt
 rm -f ./src/out.txt
-rm -f ./src/__prepend__.cpp
+rm -f ./src/__append__.cpp
 
 touch ./src/main.cpp ./src/in.txt ./src/out.txt
 
 if not set -q _flag_n
+    printf "#include <iostream>\n\nusing namespace std;\n\n" >>./src/main.cpp
+
     while read -P "Smaple Input: " -L smaple_input
         echo $smaple_input >>./src/in.txt
     end
@@ -39,13 +41,13 @@ if not set -q _flag_n
     end
 
     if set -q _flag_a
-        touch ./src/__prepend__.cpp
-        printf '#include "__prepend__.cpp"\n\n' >>./src/main.cpp
+        touch ./src/__append__.cpp
+        printf '\n#include "__append__.cpp"\n' >>./src/main.cpp
 
-        while read -P "Prepend Code: " -L prepend_code
-            echo $prepend_code >>./src/__prepend__.cpp
+        while read -P "Append Code: " -L append_code
+            echo $append_code >>./src/__append__.cpp
         end
     else
-        printf "#include <bits/stdc++.h>\n\nint main() {\n\n  return 0;\n}" >>./src/main.cpp
+        printf "int main() {\n\n  return 0;\n}" >>./src/main.cpp
     end
 end
