@@ -1,4 +1,10 @@
-# my-pta-archives
+# my-sdust-oj-archives-cpp
+
+我的 SDUST OJ 归档，使用 C++ 语言。
+
+评判程序使用 Append 模式，它将会插入在你写的代码的后面。
+
+查看 `pta` 分支，了解 Prepend 模式的使用。
 
 ## Requirements
 
@@ -36,4 +42,4 @@ just checkout [id]
 
 # Reference
 
-- [PTA](https://pintia.cn)
+- [SDUST OJ](http://192.168.119.211/JudgeOnline/) (校内局域网访问)
