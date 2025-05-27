@@ -9,13 +9,17 @@ read -P "Description: " description
 
 set file "./archives/$(test -n "$description"; and printf "%s_%s.cpp" $id $description; or echo $id.cpp)"
 
-while read -P "Problem: " -L problem
-    if test -z "$problem"
+set tempfile (mktemp)
+echo "Problem: (editing in \$EDITOR...)"
+$EDITOR $tempfile
+for line in (cat $tempfile)
+    if test -z "$line"
         echo // >>$file
         continue
     end
-    echo "// $problem" >>$file
+    echo "// $line" >>$file
 end
+rm -f $tempfile
 
 echo >>$file
 echo "// Sample Input" >>$file
