@@ -66,7 +66,7 @@ void put_clock(clock ck) {
   printf("%02d:%02d:%02d\n", ck.h, ck.m, ck.s);
 }
 
-// Append Code Start
+// Append Code
 int main()
 {
     int n;
@@ -75,4 +75,3 @@ int main()
         put_clock(turn_clock(ck, n));
     return 0;
 }
-// Append Code End

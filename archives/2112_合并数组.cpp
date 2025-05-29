@@ -79,7 +79,7 @@ int merge(int m, int *A, int n, int *B, int *C) {
   return unique(C, merge(A, A + m, B, B + n, C)) - C;
 }
 
-// Append Code Start
+// Append Code
 int main() {
   int A[100], B[100], C[200];
   int m, n, k;
@@ -89,4 +89,3 @@ int main() {
   output(C, k);
   return 0;
 }
-// Append Code End

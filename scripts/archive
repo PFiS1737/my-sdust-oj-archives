@@ -42,10 +42,8 @@ for line in (cat ./src/main.cpp)
 end
 
 if test -f ./src/__append__.cpp
-    # echo >>$file
-    echo "// Append Code Start" >>$file
+    echo "// Append Code" >>$file
     for line in (cat ./src/__append__.cpp)
         echo $line >>$file
     end
-    echo "// Append Code End" >>$file
 end

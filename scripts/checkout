@@ -61,7 +61,7 @@ for line in (cat $file)
         continue
     end
 
-    if string match -rq '^// Append Code Start$' $line
+    if string match -rq '^// Append Code$' $line
         set inner_append_code 1
         continue
     end
@@ -85,10 +85,6 @@ for line in (cat $file)
     end
 
     if test $inner_append_code -eq 1
-        if string match -rq '^// Append Code End$' $line
-            set inner_append_code 0
-            continue
-        end
         echo $line >>./src/__append__.cpp
         continue
     end

@@ -100,7 +100,7 @@ public:
   }
 };
 
-// Append Code Start
+// Append Code
 int main()
 {
     int i, j, n, m, *a;
@@ -121,4 +121,3 @@ int main()
     }
     return 0;
 }
-// Append Code End

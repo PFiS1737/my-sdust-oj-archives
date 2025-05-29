@@ -28,7 +28,7 @@ char next(char ch) {
   return ch + 1;
 }
 
-// Append Code Start
+// Append Code
 int main()
 {
     int m, i;
@@ -41,4 +41,3 @@ int main()
     }
     return 0;
 }
-// Append Code End

@@ -69,7 +69,7 @@ public:
   }
 };
 
-// Append Code Start
+// Append Code
 int main()
 {
     Time t;
@@ -87,4 +87,3 @@ int main()
         cout<<setw(2)<<setfill('0')<<t.second()<<endl;
     }
 }
-// Append Code End

@@ -68,7 +68,7 @@ public:
   }
 };
 
-// Append Code Start
+// Append Code
 int main()
 {
     int i, a[5];
@@ -85,4 +85,3 @@ int main()
     cout<<eq1.getValue(x)<<endl;
     return 0;
 }
-// Append Code End
