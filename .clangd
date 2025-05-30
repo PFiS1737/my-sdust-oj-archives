@@ -1,2 +1,2 @@
 CompileFlags:
-  Add: [-std=gnu++98]
+  Add: [-std=gnu++98, -Wall, -Wextra]
