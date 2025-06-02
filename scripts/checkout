@@ -102,4 +102,8 @@ for line in (cat $file)
     end
 end
 
+if test $inner_append_code -eq 1
+    printf '#include "__append__.cpp"\n' >>./src/main.cpp
+end
+
 echo "File $file has been checked out to ./src/main.cpp"
