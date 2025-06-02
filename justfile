@@ -12,12 +12,14 @@ config mode:
 build:
     @xmake build
 
+[no-exit-message]
 run:
     @xmake run
 
 checkout id='':
     @./scripts/checkout {{id}}
 
+[no-exit-message]
 judge:
     @./scripts/judge
 

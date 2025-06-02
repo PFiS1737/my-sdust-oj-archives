@@ -19,18 +19,42 @@ function echo_h3
     set_color normal
 end
 
+function echo_error
+    set_color red
+    echo $argv[1]
+    set_color normal
+end
+
 echo_h1 "Building..."
 just build
+or begin
+    echo
+    echo_error "Failed to build the program."
+    return 1
+end
 echo
 
+trap 'rm -f ./src/out.tmp ./src/time' INT TERM EXIT
+
 echo_h1 "Running..."
+
 echo_h2 "Input:"
 cat ./src/in.txt
-echo_h2 "Output:"
+
 command time -f "Max memory : %MKB\n      Time : %es" just run <./src/in.txt 2>./src/time >./src/out.tmp
-printf "\n\n" >>./src/out.tmp
+or begin
+    echo
+    echo_error "Failed to run the program."
+    echo
+    just run <./src/in.txt
+    return 1
+end
+
 # remove trailing space lines
+printf "\n\n" >>./src/out.tmp
 sed -i ':a;$!{N;ba};s/\n*$//' ./src/out.tmp
+
+echo_h2 "Output:"
 cat ./src/out.tmp
 echo
 
@@ -44,16 +68,20 @@ if cmp -s ./src/out.txt ./src/out.tmp
     cat ./src/time
     set_color normal
 else
-    set_color red
-    echo "Wrong Answer"
-    set_color normal
+    echo_error "Wrong Answer"
     echo
 
-    echo_h3 "Expected:"
-    cat ./src/out.txt
-    echo_h3 "Get:"
-    cat ./src/out.tmp
+    while read -n 2 -P "Show diff in new window...? (Y/n): " res
+        or return 1
+        switch $res
+            case y Y ''
+                kitty kitten diff ./src/out.txt ./src/out.tmp
+                break
+            case n N
+                return 1
+            case *
+                echo Not valid input
+                continue
+        end
+    end
 end
-
-rm -f ./src/out.tmp
-rm -f ./src/time
