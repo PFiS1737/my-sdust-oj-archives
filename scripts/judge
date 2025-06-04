@@ -1,5 +1,7 @@
 #!/usr/bin/env fish
 
+source (status dirname)/utils.fish
+
 function echo_h1
     set_color blue
     echo $argv[1]
@@ -55,7 +57,7 @@ printf "\n\n" >>./src/out.tmp
 sed -i ':a;$!{N;ba};s/\n*$//' ./src/out.tmp
 
 echo_h2 "Output:"
-cat ./src/out.tmp
+showws ./src/out.tmp
 echo
 
 echo_h1 "Judging..."
