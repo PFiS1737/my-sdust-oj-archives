@@ -1,10 +1,10 @@
 add_rules("mode.debug", "mode.release")
 
-set_project("pta")
+set_project("oj")
 set_version("0.0.0")
 set_languages("gnuxx98")
 
-target("pta", function()
+target("oj", function()
 	set_kind("binary")
 	add_files("src/main.cpp")
 
