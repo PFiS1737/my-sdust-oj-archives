@@ -34,46 +34,46 @@
 using namespace std;
 
 struct Decimal {
-  int digits[1000];
-  int len;
+  int d[1000];
+  int n;
 
-  Decimal() : len(0) {
+  Decimal() : d(), n(0) {
   }
 
-  Decimal(int num) : len(0) {
+  Decimal(int num) : d(), n(0) {
     while (num) {
-      digits[len++] = num % 10;
+      d[n++] = num % 10;
       num /= 10;
     }
   }
 
-  Decimal(string str) : len(0) {
+  Decimal(string str) : d(), n(0) {
     for (int i = str.length() - 1; i >= 0; i--) {
-      digits[len++] = str[i] - '0';
+      d[n++] = str[i] - '0';
     }
   }
 
   int getLength() const {
-    return len;
+    return n;
   }
 
-  int operator[](int idx) const {
-    return digits[len - 1 - idx];
+  int operator[](int i) const {
+    return d[n - 1 - i];
   }
 
   Decimal operator+(const Decimal &o) const {
     Decimal res;
     int carry = 0;
-    for (int i = 0; i < max(len, o.len) || carry; i++) {
-      int sum = carry + (i < len ? digits[i] : 0) + (i < o.len ? o.digits[i] : 0);
-      res.digits[res.len++] = sum % 10;
+    for (int i = 0; i < max(n, o.n) || carry; i++) {
+      int sum = carry + (i < n ? d[i] : 0) + (i < o.n ? o.d[i] : 0);
+      res.d[res.n++] = sum % 10;
       carry = sum / 10;
     }
     return res;
   }
 
   Decimal &operator++() {
-    *this = *this + Decimal(1);
+    *this = *this + 1;
     return *this;
   }
 
@@ -85,8 +85,8 @@ struct Decimal {
   }
 
   friend ostream &operator<<(ostream &os, const Decimal &d) {
-    for (int i = d.len - 1; i >= 0; i--) {
-      os << d.digits[i];
+    for (int i = d.n - 1; i >= 0; i--) {
+      os << d.d[i];
     }
     return os;
   }
